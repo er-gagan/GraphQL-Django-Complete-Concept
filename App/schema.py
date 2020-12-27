@@ -75,15 +75,17 @@ class delete_Singer_Mutation(graphene.Mutation):
 
 # class create_Song_Mutation(graphene.Mutation):
 #     class Arguments:
+#         singer = graphene.String(required=True)
 #         Name = graphene.String(required=True)
 #         Duration = graphene.String(required=True)
-#     singer = graphene.Field(SingerType)
+#     song = graphene.Field(SongType)
 
 #     @classmethod
-#     def mutate(cls, root, info, Name, Phone, Email):
-#         singer = Singer(Name=Name, Phone=Phone, Email=Email)
-#         singer.save()
-#         return create_Singer_Mutation(singer=singer)
+#     def mutate(cls, root, info, singer, Name, Duration):
+#         song = Song(Name=Name, Duration=Duration)
+#         song.save()
+#         song.singer.set(singer)
+#         return create_Song_Mutation(song=song)
 
 
 class Mutation(graphene.ObjectType):
