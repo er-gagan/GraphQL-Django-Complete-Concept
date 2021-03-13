@@ -27,7 +27,7 @@ class SongType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     singer = relay.Node.Field(SingerType)
-    singers = DjangoFilterConnectionField(SingerType)
+    singers = DjangoFilterConnectionField(SingerType, Address=graphene.String())
 
     song = relay.Node.Field(SongType)
     songs = DjangoFilterConnectionField(SongType)
@@ -72,21 +72,6 @@ class delete_Singer_Mutation(graphene.Mutation):
         singer = Singer.objects.get(id=id)
         singer.delete()
         return
-
-# class create_Song_Mutation(graphene.Mutation):
-#     class Arguments:
-#         singer = graphene.String(required=True)
-#         Name = graphene.String(required=True)
-#         Duration = graphene.String(required=True)
-#     song = graphene.Field(SongType)
-
-#     @classmethod
-#     def mutate(cls, root, info, singer, Name, Duration):
-#         song = Song(Name=Name, Duration=Duration)
-#         song.save()
-#         song.singer.set(singer)
-#         return create_Song_Mutation(song=song)
-
 
 class Mutation(graphene.ObjectType):
     create_Singer = create_Singer_Mutation.Field()
